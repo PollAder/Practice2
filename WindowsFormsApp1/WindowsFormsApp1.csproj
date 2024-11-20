@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AdminForm.Designer.cs">
+      <DependentUpon>AdminForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClientWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,15 @@
     <Compile Include="StatusOrders.Designer.cs">
       <DependentUpon>StatusOrders.cs</DependentUpon>
     </Compile>
+    <Compile Include="UsersAdminForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UsersAdminForm.Designer.cs">
+      <DependentUpon>UsersAdminForm.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AdminForm.resx">
+      <DependentUpon>AdminForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClientWindow.resx">
       <DependentUpon>ClientWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -83,6 +98,9 @@
     </Compile>
     <EmbeddedResource Include="StatusOrders.resx">
       <DependentUpon>StatusOrders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UsersAdminForm.resx">
+      <DependentUpon>UsersAdminForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
