@@ -16,5 +16,20 @@ namespace WindowsFormsApp1
         {
             InitializeComponent();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            UsersAdminForm usersAdminForm = new UsersAdminForm();
+            usersAdminForm.Show();
+            usersAdminForm.FormClosed += (s, args) => this.Show();
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            CreateOrder OrderForm = new CreateOrder();
+            OrderForm.Show();
+            OrderForm.FormClosed += (s, args) => this.Show();
+        }
     }
 }
