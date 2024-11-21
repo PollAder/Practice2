@@ -12,9 +12,12 @@ namespace WindowsFormsApp1
 {
     public partial class ClientWindow : Form
     {
-        public ClientWindow()
+        private int clientId; // Поле для хранения идентификатора клиента
+
+        public ClientWindow(int id)
         {
             InitializeComponent();
+            clientId = id;
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -49,7 +52,10 @@ namespace WindowsFormsApp1
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            StatusOrders orderForm = new StatusOrders(clientId);
+            orderForm.Show();
+            this.Hide(); // Скрываем текущее окно
+            orderForm.FormClosed += (s, args) => this.Show();
         }
     }
 }

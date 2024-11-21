@@ -43,37 +43,39 @@ namespace WindowsFormsApp1
             {
                 dbConnection.OpenConnection();
 
-                // SQL-запрос для проверки учетных данных
-                string query = "SELECT Role FROM Users WHERE Username=@username AND Password=@password AND email=@email";
-                
+                // SQL-запрос для проверки учетных данных и получения ID пользователя
+                string query = "SELECT idUsers, Role FROM Users WHERE Username=@username AND Password=@password AND Email=@Email";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, dbConnection.GetConnection()))
                 {
                     cmd.Parameters.AddWithValue("@username", username);
                     cmd.Parameters.AddWithValue("@password", password); // В реальном приложении используйте хешированный пароль
-                    cmd.Parameters.AddWithValue("@email", email);
+                    cmd.Parameters.AddWithValue("@Email", email);
 
-                    var role = cmd.ExecuteScalar(); // Получаем роль пользователя
-
-                    if (role != null)
+                    using (var reader = cmd.ExecuteReader())
                     {
-                        if (role.ToString() == "administrator")
+                        if (reader.Read())
                         {
-                            AdminForm adminForm = new AdminForm(); 
-                            adminForm.Show();
-                            this.Hide(); 
+                            int userId = reader.GetInt32("idUsers"); // Получаем ID пользователя
+                            string role = reader.GetString("Role"); // Получаем роль пользователя
+
+                            if (role == "administrator")
+                            {
+                                AdminForm adminForm = new AdminForm();
+                                adminForm.Show();
+                                this.Hide();
+                            }
+                            else if (role == "Заказчик")
+                            {
+                                ClientWindow statusOrdersForm = new ClientWindow(userId); // Передаем ID заказчика
+                                statusOrdersForm.Show();
+                                this.Hide();
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("Вы вошли как пользователь.");
-                            ClientWindow clientwind = new ClientWindow();
-                            clientwind.Show();
-                            this.Hide();
+                            MessageBox.Show("Неверные учетные данные.");
                         }
-                    }
-                    else
-                    {
-                        MessageBox.Show("Неверные учетные данные.");
                     }
                 }
             }
